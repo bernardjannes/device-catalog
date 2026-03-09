@@ -8,8 +8,8 @@ others,,,,,,,,,,,,
 ##objects,,,,,,,,,,,,
 id,name,value,type,access_mode,value_type,precision,units,cov_increment,min_value,max_value,models,description
 reason,Reason of uplink,0,number,R,UINT8,,,1,,,all,Reason
-targetTemperature,Target temperature in Celsius,0,number,R,FLOAT,2,Cel,0.1,,,all,Target temperature in 캜
-sensorTemperature,Sensor temperature in Celsius,0,number,R,FLOAT,2,Cel,0.1,,,all,Temperature in 캜
+targetTemperature,Target temperature in Celsius,0,number,R,FLOAT,2,Cel,0.1,,,all,Target temperature in 째C
+sensorTemperature,Sensor temperature in Celsius,0,number,R,FLOAT,2,Cel,0.1,,,all,Temperature in 째C
 relativeHumidity,Relative humidity in percentage,0,number,R,FLOAT,2,%RH,0.1,,,all,Relative humidity in RH
 motorPosition,Motor position in steps,0,number,R,FLOAT,2,,0.1,0,15,all,Motor position in steps
 motorRange,Motor range in steps,0,number,R,FLOAT,2,,0.1,0,15,all,Motor range in steps
@@ -65,8 +65,8 @@ forceClose,Force close command,0,binary,RW,UINT8,,,1,0,1,all,
 setInternalAlgoParams:pFirstLast,Set internal algo params pFirstLast,0,number,RW,UINT8,,,1,0,255,all,steps
 setInternalAlgoParams:pNext,Set internal algo params pNext,0,number,RW,UINT8,,,1,0,255,all,steps
 getInternalAlgoParams,Get intenal algo params command,0,binary,RW,UINT8,,,1,0,1,all,
-setInternalAlgoTdiffParams:cold,Set internal algo tdiff cold,0,number,RW,UINT8,,Cel,1,0,255,all,in 캜
-setInternalAlgoTdiffParams:warm,Set internal algo tdiff warm,0,number,RW,UINT8,,Cel,1,0,255,all,in 캜
+setInternalAlgoTdiffParams:cold,Set internal algo tdiff cold,0,number,RW,UINT8,,Cel,1,0,255,all,in 째C
+setInternalAlgoTdiffParams:warm,Set internal algo tdiff warm,0,number,RW,UINT8,,Cel,1,0,255,all,in 째C
 getInternalAlgoTdiffParams,Get internal algo tdiff params command,0,binary,RW,UINT8,,,1,0,1,all,
 setOperationalMode,Set operational mode command,0,number,RW,UINT8,,,1,0,2,all,"0 - Online manual control mode. Default for the device, 1 - Online automatic control mode, 2 - Online automatic control mode with external temperature reading."
 getOperationalMode,Get operational mode command,0,binary,RW,UINT8,,,1,0,1,all,
@@ -108,3 +108,14 @@ getOpenWindowPrecisely,Get open window precisely command,0,binary,RW,UINT8,,,1,0
 setForceAttach,Set force attach command,0,binary,RW,UINT8,,,1,0,1,all,"0: disabled, 1: enabled"
 getForceAttach,Get force attach command,0,binary,RW,UINT8,,,1,0,1,all,
 sendCustomHexCommand,Send custom hex command command,"""""",string,RW,STRING,,,,,,all,Hexa payload as string like '014F32'
+##linked objects,,,,,,,,,,,,
+models,object_list,,,,,,,,,,,
+all,"setOpenWindow.enabled,setOpenWindow.closeTime,setOpenWindow.delta,setOpenWindow.motorPosition",,,,,,,,,,,
+all,"setTemperatureRange.min,setTemperatureRange.max",,,,,,,,,,,
+all,"setInternalAlgoParams.pFirstLast,setInternalAlgoParams.pNext",,,,,,,,,,,
+all,"setTargetTemperatureAndMotorPosition.motorPosition,setTargetTemperatureAndMotorPosition.targetTemperature",,,,,,,,,,,
+all,"setWatchDogParams.confirmedUplinks,setWatchDogParams.unconfirmedUplinks",,,,,,,,,,,
+all,"setProportionalAlgorithmParameters.coefficient,setProportionalAlgorithmParameters.period",,,,,,,,,,,
+all,"setOpenWindowPrecisely.enabled,setOpenWindowPrecisely.duration,setOpenWindowPrecisely.delta",,,,,,,,,,,
+
+
