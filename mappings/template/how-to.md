@@ -19,14 +19,15 @@ Make sure to replace {vendorId} with the ID of your vendor and {moduleId} with t
 
 This document presents the CSV format that must be used to define a mapping file for BACnet/Modbus drivers.
 
-The CSV file has three sections:
+The CSV file has four sections:
 * General section: defines global parameters
 * Models section: defines model filters that must be used to precisely select which model a point belongs to
 * Objects section: defines the list of points that should be exposed when creating the device
+* Linked objects section: defines the list of points that should be sent jointly in the same downlink command
 
 ### General section
 * version: The file format version. It must be 1.0 for now
-* max_downlink_commands: The number of downlink commands that can be aggregated in a single LoRaWAN downlink packet. The recommended value is 5.
+* max_downlink_commands: The number of downlink commands that can be aggregated in a single LoRaWAN downlink packet. The recommended value is 5.  If you are using Linked objects, this value must be set to greater than the maximum number of items in the linked list.
 
 ### Models section
 Some drivers are common to multiple models, but some points are only available for specific models. This section defines filters that are used during point definition in order to precisely define which model supports each point.
@@ -234,6 +235,20 @@ function encodeDownlink(input) {
 
 
 exports.encodeDownlink = encodeDownlink;
+~~~
+### Linked objects section
+
+#### models
+This is the model scope that the object list applies to. This field cannot be empty and must exist in the Models section.
+
+#### object list
+This is the list of id field referencing each point that are linked together, each id must be defined in the object section and each point itself must have access mode set to READ/WRITE: "RW"
+
+### example
+Supposing we have link1,"{ mId: 600-021 },{ mId: tx-amb-600-021 }, { mId: 600-034 }" in the Models section, we can define:
+
+~~~
+ link1,"periodicity, hiCO2Alarm, lowCO2Alarm, sensorSampPeriod, states:led, states:RBE, states:motionGuard"
 ~~~
 
 ## Survival guide
